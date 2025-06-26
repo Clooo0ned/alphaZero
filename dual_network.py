@@ -8,7 +8,7 @@ import os
 DN_FILTERS = 128            # 畳み込み層のカーネル数
 DN_RESIDUAL_NUM = 16        # 残差ブロックの数
 DN_INPUT_SHAPE = (3, 3, 2)  # 入力の形状
-DN_OUTPUT_SHAPE = 9         # 行動数(配置先(3*3))
+DN_OUTPUT_SIZE = 9         # 行動数(配置先(3*3))
 
 # 畳み込み層の定義
 def conv(filters):
@@ -50,7 +50,7 @@ def dual_network():
     x = GlobalAveragePooling2D()(x)
 
     # ポリシー出力
-    p = Dense(DN_OUTPUT_SHAPE, activation='softmax', kernel_regularizer=l2(0.0005), name='pi')(x)
+    p = Dense(DN_OUTPUT_SIZE, activation='softmax', kernel_regularizer=l2(0.0005), name='pi')(x)
 
     # バリュー出力
     v = Dense(1, kernel_regularizer=l2(0.0005))(x)
