@@ -10,7 +10,7 @@ import pickle
 import os
 
 # パラメータ
-SP_GAME_COUNT =500 # 自己対戦のゲーム数
+SP_GAME_COUNT =20 # 自己対戦のゲーム数
 SP_TEMPERATURE = 0.1 # 温度パラメータ
 
 # 先手プレイヤーの価値

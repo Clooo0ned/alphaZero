@@ -1,3 +1,8 @@
+import tensorflow as tf
+
+print("Num GPUs Available: ", len(tf.config.list_physical_devices('GPU')))
+print(tf.config.list_physical_devices())
+
 from dual_network import DN_INPUT_SHAPE
 from tensorflow.keras.callbacks import LearningRateScheduler, LambdaCallback
 from tensorflow.keras.models import load_model
@@ -44,7 +49,8 @@ def train_network():
 
     # 出力
     print_callback = LambdaCallback(
-        on_epoch_begin=lambda epoch, logs: print(f'\rEpoch {epoch + 1}/{RN_EPOCHS}', end=''))
+        on_epoch_begin=lambda epoch, logs:
+        print(f'\rTrain {epoch + 1}/{RN_EPOCHS}', end=''))
 
     # 学習の実行
     model.fit(xs, [y_policies, y_values], epochs=RN_EPOCHS, batch_size=128, verbose=0,
@@ -52,7 +58,7 @@ def train_network():
     print("")
 
     # モデルの保存
-    model.save('./model/best.h5')
+    model.save('./model/latest.h5')
 
     # モデルの破棄
     K.clear_session()
